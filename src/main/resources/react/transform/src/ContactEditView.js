@@ -9,6 +9,8 @@ export default class ContactEditView extends React.Component {
     return (
       <TextArea
         disabled = {this.props.disabled}
+        allowClear = {true}
+        defaultValue = '{"message_parent":{"parent_child":{"child_string":"child_string","child_integer":1}},"message_string":"message_string","message_integer":1}'
         className="Home-content-left"
         rows={20}
         value={this.props.contactText}

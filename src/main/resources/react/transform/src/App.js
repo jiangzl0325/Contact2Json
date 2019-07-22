@@ -7,7 +7,12 @@ import JsonEditView from "./JsonEditView";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { contactText: "", jsonText: "", isloading: false };
+    this.state = {
+      contactText:
+        '{"message_parent":{"parent_child":{"child_string":"child_string","child_integer":1}},"message_string":"message_string","message_integer":1}',
+      jsonText: "",
+      isloading: false
+    };
   }
 
   contactChange = e => {
@@ -20,6 +25,10 @@ export default class App extends React.Component {
 
   handleClick = e => {
     this.setState({ isloading: true });
+    setTimeout(() => {
+      this.setState({ isloading: false });
+      this.setState({ jsonText:  JSON.stringify(JSON.parse(this.state.contactText), null, 2) });
+    }, 2000);
   };
 
   render() {
