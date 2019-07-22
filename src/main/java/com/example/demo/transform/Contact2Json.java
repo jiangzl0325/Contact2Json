@@ -6,8 +6,6 @@ import java.lang.reflect.Field;
 
 public class Contact2Json {
 
-
-
     public static String Contact2Json(String className){
         Object message = null;
         
@@ -37,7 +35,7 @@ public class Contact2Json {
         return gson;
     }
 
-    private static Object traverse(Object o2 , Field fieldR) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    private static Object traverse(Object o2 , Field fieldR)  {
         Object o1 = null;
 
         try {
