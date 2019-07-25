@@ -10,5 +10,6 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         Contact2Json.Contact2Json("com.example.demo.bean.Message");
+        Object o = new Contact2Json();
     }
 }
