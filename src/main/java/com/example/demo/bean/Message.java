@@ -14,6 +14,7 @@ public class Message {
     public List<String> message_list_string;
     public List<Parent> message_list_parent;
     public Map<String,Float> message_map_string;
+    public String currentLocaleName;
 
 
 
