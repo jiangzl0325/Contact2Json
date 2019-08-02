@@ -1,6 +1,5 @@
-package com.example.demo.bean;
+package com.example.demo.bean2;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

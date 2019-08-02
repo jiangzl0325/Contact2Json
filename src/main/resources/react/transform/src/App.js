@@ -3,13 +3,31 @@ import "./App.css";
 import { Button, Spin } from "antd";
 import ContactEditView from "./ContactEditView";
 import JsonEditView from "./JsonEditView";
+import axios from 'axios'
+
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       contactText:
-        '{"message_parent":{"parent_child":{"child_string":"child_string","child_integer":1}},"message_string":"message_string","message_integer":1}',
+        `class CityInfo{
+          /* 城市id */
+          int cityId;
+          /* 城市图片url */
+          string imageUrl;
+          /* 城市详情跳转链接 */
+          string districtUrl;
+          /* need to know 跳转链接 */
+          string needToKnowUrl;
+      }
+      
+      class GetCitySimpleInfoResponseType{
+          BaijiCommonTypes.ResponseStatusType responseStatus;
+          BaijiIbuCommonTypes.ResponseHead responseHead;
+          /* 图片链接 */
+          list<CityInfo> infos;
+      }`,
       jsonText: "",
       isloading: false
     };
@@ -25,10 +43,18 @@ export default class App extends React.Component {
 
   handleClick = e => {
     this.setState({ isloading: true });
-    setTimeout(() => {
-      this.setState({ isloading: false });
-      this.setState({ jsonText:  JSON.stringify(JSON.parse(this.state.contactText), null, 2) });
-    }, 2000);
+
+    axios.get(encodeURI("http://localhost:8080/greeting?name="+this.state.contactText)).then((response) => {
+      console.log(response.data);
+      this.setState({jsonText:response.data.content})
+      setTimeout(() => {
+        this.setState({ isloading: false });
+        this.setState({
+          jsonText: JSON.stringify(JSON.parse(this.state.jsonText), null, 4)
+        });
+      }, 500);
+    });
+    
   };
 
   render() {

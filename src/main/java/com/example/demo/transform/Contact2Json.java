@@ -17,7 +17,7 @@ public class Contact2Json {
 
         try {
             Class mClass = Class.forName(className);
-            Field[] fields = mClass.getFields();
+            Field[] fields = mClass.getDeclaredFields();
             try {
                 message = mClass.newInstance();
             } catch (IllegalAccessException | InstantiationException e) {
@@ -26,7 +26,7 @@ public class Contact2Json {
 
             for (Field field :
                     fields) {
-
+                field.setAccessible(true);
                 traverse(message, field);
             }
 
@@ -45,6 +45,7 @@ public class Contact2Json {
 
     private static Object traverse(Object o2, Field fieldR) {
         Object o1 = null;
+        fieldR.setAccessible(true);
         String type = fieldR.getType().getName();
         if (type.equals("java.util.Comparator")) {
             return o1;
@@ -55,22 +56,22 @@ public class Contact2Json {
                 fieldR.set(o2, fieldR.getName());
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.lang.Integer")) {
-                fieldR.set(o2, Integer.MIN_VALUE);
+                fieldR.set(o2, 0);
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.lang.Boolean")) {
                 fieldR.set(o2, Boolean.TRUE);
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.lang.Long")) {
-                fieldR.set(o2, Long.MIN_VALUE);
+                fieldR.set(o2, 0);
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.lang.Double")) {
-                fieldR.set(o2, Double.MIN_VALUE);
+                fieldR.set(o2, 0);
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.lang.Short")) {
                 fieldR.set(o2, Short.MIN_VALUE);
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.lang.Float")) {
-                fieldR.set(o2, Float.MIN_VALUE);
+                fieldR.set(o2, 0);
                 objectEnhanceData(o2, fieldR);
             } else if (type.equals("java.util.Calendar")) {
                 fieldR.set(o2, Calendar.DATE);
@@ -94,7 +95,7 @@ public class Contact2Json {
                     boolean isReturn = objectBindData(objects);
                     if (!isReturn) {
                         for (Field field :
-                                mClass.getFields()) {
+                                mClass.getDeclaredFields()) {
                             traverse(o, field);
                         }
 
@@ -122,7 +123,7 @@ public class Contact2Json {
                     boolean isReturn = objectBindData(objects);
                     if (!isReturn) {
                         for (Field field :
-                                mClass.getFields()) {
+                                mClass.getDeclaredFields()) {
                             traverse(o, field);
                         }
 
@@ -136,7 +137,7 @@ public class Contact2Json {
                 Class mClass = Class.forName(type);
                 o1 = mClass.newInstance();
                 for (Field field :
-                        mClass.getFields()) {
+                        mClass.getDeclaredFields()) {
                     traverse(o1, field);
                 }
                 fieldR.set(o2, o1);
@@ -181,8 +182,14 @@ public class Contact2Json {
             if(map.containsKey(fieldR.getName())){
                 fieldR.set(o2, map.get(fieldR.getName()));
             }
+            if(fieldR.getName().equals("Ack")){
+                fieldR.set(o2, "Success");
+            }
+            if(fieldR.getName().equals("errorMessage")||fieldR.getName().equals("errorCode")||fieldR.getName().equals("showErrorMsg")){
+                fieldR.set(o2, "");
+            }
         }catch (Exception e){
-            System.out.println("objectEnhanceData=======================");
+            System.out.println("objectEnhanceData======================="+e);
 
 
         }

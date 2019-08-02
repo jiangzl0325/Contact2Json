@@ -1,4 +1,4 @@
-package com.example.demo.bean;
+package com.example.demo.bean2;
 
 public class Parent {
     public Parent() {
