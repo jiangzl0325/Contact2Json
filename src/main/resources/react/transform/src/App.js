@@ -44,7 +44,7 @@ export default class App extends React.Component {
   handleClick = e => {
     this.setState({ isloading: true });
 
-    axios.get(encodeURI("http://localhost:8080/greeting?name="+this.state.contactText)).then((response) => {
+    axios.get(encodeURI("http://localhost:8080/contact2json?contact="+this.state.contactText)).then((response) => {
       console.log(response.data);
       this.setState({jsonText:response.data.content})
       setTimeout(() => {

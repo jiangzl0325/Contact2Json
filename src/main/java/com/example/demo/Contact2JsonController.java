@@ -2,15 +2,13 @@ package com.example.demo;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.example.demo.transform.Contact2Json;
-import com.example.demo.transform.DynamicClassloader;
 import com.example.demo.transform.DynamicCompile;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GreetingController {
+public class Contact2JsonController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -48,8 +46,8 @@ public class GreetingController {
             "    }\n" +
             "}";
 
-    @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    @RequestMapping("/contact2json")
+    public Contact2Json greeting(@RequestParam(value="contact", defaultValue="") String name) {
         String[] list = name.split("}");
         String Name = null;
         DynamicCompile.eval(responseHead);
@@ -78,12 +76,12 @@ public class GreetingController {
                 name = DynamicCompile.eval(item);
             }
         }catch (Exception e){
-            System.out.println("Greeting============="+e);
+            System.out.println("Contact2Json============="+e);
         }
 
 
-        String json = Contact2Json.Contact2Json(name);
-        return new Greeting(counter.incrementAndGet(),
+        String json = com.example.demo.transform.Contact2Json.Contact2Json(name);
+        return new Contact2Json(counter.incrementAndGet(),
                 json);
     }
 }
