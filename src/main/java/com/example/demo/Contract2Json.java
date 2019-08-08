@@ -1,11 +1,11 @@
 package com.example.demo;
 
-public class Contact2Json {
+public class Contract2Json {
 
     private final long id;
     private final String content;
 
-    public Contact2Json(long id, String content) {
+    public Contract2Json(long id, String content) {
         this.id = id;
         this.content = content;
     }

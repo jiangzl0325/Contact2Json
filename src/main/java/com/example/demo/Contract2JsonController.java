@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Contact2JsonController {
+public class Contract2JsonController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -46,8 +46,8 @@ public class Contact2JsonController {
             "    }\n" +
             "}";
 
-    @RequestMapping("/contact2json")
-    public Contact2Json greeting(@RequestParam(value="contact", defaultValue="") String name) {
+    @RequestMapping("/contract2json")
+    public Contract2Json contact2json(@RequestParam(value="contract", defaultValue="") String name) {
         String[] list = name.split("}");
         String Name = null;
         DynamicCompile.eval(responseHead);
@@ -76,12 +76,12 @@ public class Contact2JsonController {
                 name = DynamicCompile.eval(item);
             }
         }catch (Exception e){
-            System.out.println("Contact2Json============="+e);
+            System.out.println("Contract2Json============="+e);
         }
 
 
         String json = com.example.demo.transform.Contact2Json.Contact2Json(name);
-        return new Contact2Json(counter.incrementAndGet(),
+        return new Contract2Json(counter.incrementAndGet(),
                 json);
     }
 }
