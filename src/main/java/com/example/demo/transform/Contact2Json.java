@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Contact2Json {
 
@@ -18,11 +21,9 @@ public class Contact2Json {
         try {
             Class mClass = Class.forName(className);
             Field[] fields = mClass.getDeclaredFields();
-            try {
-                message = mClass.newInstance();
-            } catch (IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
+
+            message = mClass.newInstance();
+
 
             for (Field field :
                     fields) {
@@ -81,7 +82,7 @@ public class Contact2Json {
                 ParameterizedType genericType = (ParameterizedType) fieldR.getGenericType();
                 Class<?> aClass = (Class<?>) genericType.getActualTypeArguments()[0];
                 String bclass = aClass.getName();
-                o1 = new ArrayList<>();
+                o1 = new ArrayList<Object>();
                 for (int i = 0; i < 3; i++) {
                     Class mClass = Class.forName(bclass);
                     Object o = null;
@@ -109,7 +110,7 @@ public class Contact2Json {
                 ParameterizedType genericType = (ParameterizedType) fieldR.getGenericType();
                 Class<?> aClass = (Class<?>) genericType.getActualTypeArguments()[1];
                 String bclass = aClass.getName();
-                o1 = new HashMap<>();
+                o1 = new HashMap<String,Object>();
                 for(int i = 0 ; i <3 ;i++){
                     Class mClass = Class.forName(bclass);
                     Object o = null;

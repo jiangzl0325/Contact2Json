@@ -34,10 +34,12 @@ public class ParentsDelegateClassLoader extends ClassLoader {
         byte[] b = null;
         try {
             b = loadClassFile(name);
+            return this.defineClass(name, b, 0, b.length);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this.defineClass(name, b, 0, b.length);
+        return null;
     }
 
     private byte[] loadClassFile(String name) throws IOException {
